@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Rating from './Rating';
 
 const StyledWrapper = styled.div`
     width: 100%;
@@ -56,6 +57,7 @@ const Product: React.FC<IProps> = ({product}) => {
             <img src={product.image} alt={product.name} />
             <div className="body">
                 <p>{product.name}</p>
+                <Rating rating={product.rating}/>
                 <p>$<span>{product.price}</span></p>
             </div>
         </StyledWrapper>

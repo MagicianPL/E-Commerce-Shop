@@ -1,0 +1,21 @@
+import styled from 'styled-components';
+import hero from '../assets/hero.jpg';
+
+const StyledHeroBg = styled.div`
+    width: 100%;
+    height: 400px;
+    background-image: url(${hero});
+    background-position: center;
+    opacity: 0.7;
+    position: relative;
+
+    &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: #3B343A;
+        opacity: 0.3;
+    }
+`;
+
+export default StyledHeroBg;

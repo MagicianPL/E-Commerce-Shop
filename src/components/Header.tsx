@@ -3,10 +3,9 @@ import styled from 'styled-components';
 
 const StyledHeader = styled.header`
     width: 100%;
-    padding: 20px 15px;
+    padding: 30px 15px;
     display: flex;
     justify-content: center;
-    border: 1px solid black;
 `;
 
 const Header = () => {

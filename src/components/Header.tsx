@@ -12,6 +12,11 @@ const StyledHeader = styled.header`
         font-size: 24px;
         align-self: flex-end;
         cursor: pointer;
+        transition: color 0.4s;
+
+        &:hover {
+            color: ${({theme}) => theme.colors.tertiary};
+        }
     }
 `;
 

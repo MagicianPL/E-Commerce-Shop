@@ -7,11 +7,11 @@ const StyledWrapper = styled.div`
     border: 1px solid ${({theme}) => theme.colors.primary};
     background: ${({theme}) => theme.colors.secondary};
     margin: 10px;
+    border-radius: 5px;
 
     img {
         width: 100%;
-        border-bottom-right-radius: 5px;
-        border-bottom-left-radius: 5px;
+        border-radius: 5px;
     }
 
     .body {
@@ -19,17 +19,44 @@ const StyledWrapper = styled.div`
 
         * {
             margin-bottom: 7px;
+            font-size: 20px;
+        }
+
+        p {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+
+        p:first-child {
+            color: ${({theme}) => theme.colors.tertiary};
+            font-weight: bold;
         }
     }
 `;
 
-const Product = () => {
+interface IProps {
+    product: {
+        _id: string
+        name: string
+        category: string
+        image: string
+        price: number
+        countInStock: number
+        brand: string
+        rating: number
+        numReviews: number
+        description: string
+    }
+}
+
+const Product: React.FC<IProps> = ({product}) => {
     return(
         <StyledWrapper>
-            <img src="./images/p1.jpg" alt="xxx" />
+            <img src={product.image} alt={product.name} />
             <div className="body">
-                <p>NameOfProd</p>
-                <p>120 $</p>
+                <p>{product.name}</p>
+                <p>$<span>{product.price}</span></p>
             </div>
         </StyledWrapper>
     );

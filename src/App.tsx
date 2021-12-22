@@ -1,10 +1,10 @@
 import React from 'react';
 import './App.css';
 import { ThemeProvider } from 'styled-components';
-import { theme } from './theme/theme'
+import { theme } from './theme/theme';
 import Header from './components/Header';
 import StyledHeroBg from './components/StyledHeroBg';
-import Product from './components/Product';
+import ProductsContainer from './components/ProductsContainer';
 
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <Header />
         <StyledHeroBg />
-        <Product />
+        <ProductsContainer />
       </ThemeProvider>
     </div>
   );

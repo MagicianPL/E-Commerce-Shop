@@ -13,7 +13,7 @@ const StyledHeroBg = styled.div`
         content: "";
         position: absolute;
         inset: 0;
-        background: #3B343A;
+        background: ${({theme}) => theme.colors.tertiary};
         opacity: 0.3;
     }
 `;

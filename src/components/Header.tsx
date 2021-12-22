@@ -6,6 +6,7 @@ const StyledHeader = styled.header`
     padding: 30px 15px;
     display: flex;
     justify-content: center;
+    color: ${({theme}) => theme.colors.primary};
 `;
 
 const Header = () => {

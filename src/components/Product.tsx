@@ -5,7 +5,7 @@ import Rating from './Rating';
 const StyledWrapper = styled.div`
     width: 100%;
     max-width: 290px;
-    border: 1px solid ${({theme}) => theme.colors.primary};
+    border: 2px solid ${({theme}) => theme.colors.primary};
     background: ${({theme}) => theme.colors.secondary};
     margin: 10px;
     border-radius: 5px;
@@ -57,7 +57,7 @@ const Product: React.FC<IProps> = ({product}) => {
             <img src={product.image} alt={product.name} />
             <div className="body">
                 <p>{product.name}</p>
-                <Rating rating={product.rating}/>
+                <Rating rating={product.rating} reviews={product.numReviews}/>
                 <p>$<span>{product.price}</span></p>
             </div>
         </StyledWrapper>

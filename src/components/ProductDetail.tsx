@@ -26,6 +26,10 @@ const Wrapper = styled.div`
             flex: 1;
         }
 
+        div:nth-child(1) {
+            flex: 1.5;
+        }
+
         div:nth-child(2) {
             * {
                 margin-bottom: 5px;

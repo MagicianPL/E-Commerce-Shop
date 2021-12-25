@@ -1,9 +1,17 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import data from '../data';
 import Rating from './Rating';
 import StyledButton from './StyledButton';
+
+const StyledLink = styled(Link)`
+    padding: 10px;
+    text-decoration: none;
+    display: block;
+    font-size: 20px;
+    cursor: pointer;
+`;
 
 const Wrapper = styled.div`
         display: flex;
@@ -62,6 +70,8 @@ const ProductDetail: React.FC<any> = (props) => {
     };
 
     return (
+        <>
+        <StyledLink to="/">Back to result</StyledLink>
         <Wrapper>
             <div>
             <img src={product.image} alt={product.name} />
@@ -79,6 +89,7 @@ const ProductDetail: React.FC<any> = (props) => {
                 <StyledButton>Add to Cart</StyledButton>
             </div>
         </Wrapper>
+        </>
     );
 };
 

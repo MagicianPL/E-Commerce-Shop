@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import data from '../data';
 import Product from './Product';
 
 const StyledWrapper = styled.div`
@@ -28,24 +27,34 @@ const ProductsContainer = () => {
         }[]
     }
 
+    const [loadingData, setLoadingData] = useState(false);
     const [products, setProducts] = useState<IState["products"]>([]);
-    const [error, setError] = useState(false);
+    const [error, setError] = useState<any>(false);
 
     useEffect(()=>{
-        fetch("http://localhost:5000/api/products")
-        .then(res => res.json())
-        .then(data => setProducts(data))
-        .catch(err => setError(err))
+        const fetchData = async() => {
+            await setLoadingData(true);
+
+            try {
+                const res = await fetch("http://localhost:5000/api/products");
+                const data = await res.json();
+                setProducts(data);
+                setLoadingData(false);
+            } catch(err) {
+                setError(err);
+                setLoadingData(false);
+            };
+        };
+
+        fetchData();
     }, []);
-
-    useEffect(()=>{
-        console.log(products);
-        console.log(error);
-    })
 
     return (
         <StyledWrapper>
-            {data.products.map((product: any) => <Product key={product._id} product={product}/>)}
+            {loadingData ? <h1>Loading Data...</h1>
+            : error ? <p>{error}</p>
+            :
+            products.map(product => <Product key={product._id} product={product} />)}
         </StyledWrapper>
     );
 };

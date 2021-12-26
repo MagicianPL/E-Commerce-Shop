@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import styled from 'styled-components';
-import data from '../data';
+import { IProps } from './Product';
 import Rating from './Rating';
 import StyledButton from './StyledButton';
 
@@ -63,19 +63,43 @@ const Wrapper = styled.div`
     `;
 
 
-const ProductDetail: React.FC<any> = (props) => {
+const ProductDetail = () => {
     const {id} = useParams();
-    console.log(id);
-    const product = data.products.find(obj => obj._id === id);
-    console.log(product);
+    
+    const [product, setProduct] = useState<IProps["product"] | null>(null);
+    const [loading, setLoading] = useState<any>(false);
+    const [error, setError] = useState<any>(false);
 
-    if (!product) {
-        return (<div>Product not found</div>)
-    };
+    useEffect(()=>{
+        const fetchProduct = async() => {
+            await setLoading("Loading data, please wait...");
+
+            try {
+                const res = await fetch(`http://localhost:5000/api/products/${id}`);
+                if (res.ok) {
+                    const data = await res.json();
+                    setProduct(data);
+                    setLoading(false);
+                } else if (res.status === 404) {
+                    setError("Sorry, product not found");
+                    setLoading(false);
+                }
+            } catch(err) {
+                console.log(err);
+                setError("Sorry, product not found");
+                setLoading(false);
+            }
+            
+        };
+        fetchProduct();
+    }, [id]);
 
     return (
         <>
         <StyledLink to="/">Back to result</StyledLink>
+        {loading ? <h1>{loading}</h1>
+        : error ? <h1>{error}</h1>
+        : product ?
         <Wrapper>
             <div>
             <img src={product.image} alt={product.name} />
@@ -93,6 +117,7 @@ const ProductDetail: React.FC<any> = (props) => {
                 <StyledButton>Add to Cart</StyledButton>
             </div>
         </Wrapper>
+        : null}
         </>
     );
 };

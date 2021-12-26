@@ -41,7 +41,7 @@ const StyledWrapper = styled.div`
     }
 `;
 
-interface IProps {
+export interface IProps {
     product: {
         _id: string
         name: string

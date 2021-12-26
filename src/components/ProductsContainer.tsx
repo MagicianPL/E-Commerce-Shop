@@ -41,7 +41,8 @@ const ProductsContainer = () => {
                 setProducts(data);
                 setLoadingData(false);
             } catch(err) {
-                setError(err);
+                setError("Sorry, something gone wrong");
+                console.log(err);
                 setLoadingData(false);
             };
         };

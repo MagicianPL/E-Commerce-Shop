@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import Rating from './Rating';
 
 const StyledWrapper = styled.div`
@@ -9,6 +10,10 @@ const StyledWrapper = styled.div`
     background: ${({theme}) => theme.colors.secondary};
     margin: 10px;
     border-radius: 5px;
+
+    a {
+        text-decoration: none;
+    }
 
     img {
         width: 100%;
@@ -54,9 +59,13 @@ interface IProps {
 const Product: React.FC<IProps> = ({product}) => {
     return(
         <StyledWrapper>
+            <Link to={`/${product._id}`}>
             <img src={product.image} alt={product.name} />
+            </Link>
             <div className="body">
+            <Link to={`/${product._id}`}>
                 <p>{product.name}</p>
+            </Link>
                 <Rating rating={product.rating} reviews={product.numReviews}/>
                 <p>$<span>{product.price}</span></p>
             </div>

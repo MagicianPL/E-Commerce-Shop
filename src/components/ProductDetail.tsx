@@ -71,6 +71,8 @@ const ProductDetail = () => {
     const [loading, setLoading] = useState<any>(false);
     const [error, setError] = useState<any>(false);
 
+    const [qty, setQty] = useState(1);
+
     useEffect(()=>{
         const fetchProduct = async() => {
             await setLoading("Loading data, please wait...");
@@ -95,9 +97,9 @@ const ProductDetail = () => {
         fetchProduct();
     }, [id]);
 
-    if (product) {
-        console.log([...Array(product.countInStock).keys()])
-    }
+    const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setQty(Number(e.target.value));
+    };
 
     return (
         <>
@@ -122,7 +124,7 @@ const ProductDetail = () => {
                 {product.countInStock > 0 &&
                 <>
                 <label htmlFor="qty">Qty:</label>
-                <select id="qty">
+                <select onChange={handleSelectChange} id="qty">
                     {[...Array(product.countInStock).keys()].map(
                         x => <option key={x+1} value={x+1}>{x+1}</option>
                     )}

@@ -64,6 +64,7 @@ const Wrapper = styled.div`
 
 
 const ProductDetail = () => {
+    
     const {id} = useParams();
     
     const [product, setProduct] = useState<IProps["product"] | null>(null);
@@ -94,6 +95,10 @@ const ProductDetail = () => {
         fetchProduct();
     }, [id]);
 
+    if (product) {
+        console.log([...Array(product.countInStock).keys()])
+    }
+
     return (
         <>
         <StyledLink to="/">Back to result</StyledLink>
@@ -114,7 +119,18 @@ const ProductDetail = () => {
                 <p>Price: $ {product.price}</p>
                 <p>Status: {product.countInStock > 0 ? <span className="success">In Stock</span>
                             : <span className="error">Unavailable</span>}</p>
+                {product.countInStock > 0 &&
+                <>
+                <label htmlFor="qty">Qty:</label>
+                <select id="qty">
+                    {[...Array(product.countInStock).keys()].map(
+                        x => <option key={x+1} value={x+1}>{x+1}</option>
+                    )}
+                </select>
                 <StyledButton>Add to Cart</StyledButton>
+                </>
+                }
+                
             </div>
         </Wrapper>
         : null}

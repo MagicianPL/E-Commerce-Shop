@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { IProps } from './Product';
 import Rating from './Rating';
@@ -66,6 +66,7 @@ const Wrapper = styled.div`
 const ProductDetail = () => {
     
     const {id} = useParams();
+    const navigate = useNavigate();
     
     const [product, setProduct] = useState<IProps["product"] | null>(null);
     const [loading, setLoading] = useState<any>(false);
@@ -101,6 +102,10 @@ const ProductDetail = () => {
         setQty(Number(e.target.value));
     };
 
+    const handleAddToCart = () => {
+        navigate(`/cart/${id}?qty=${qty}`);
+    };
+
     return (
         <>
         <StyledLink to="/">Back to result</StyledLink>
@@ -129,7 +134,7 @@ const ProductDetail = () => {
                         x => <option key={x+1} value={x+1}>{x+1}</option>
                     )}
                 </select>
-                <StyledButton>Add to Cart</StyledButton>
+                <StyledButton onClick={handleAddToCart}>Add to Cart</StyledButton>
                 </>
                 }
                 

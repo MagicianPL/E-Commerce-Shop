@@ -11,6 +11,7 @@ import Header from './components/Header';
 import StyledHeroBg from './components/StyledHeroBg';
 import ProductsContainer from './components/ProductsContainer';
 import ProductDetail from './components/ProductDetail';
+import Cart from './components/Cart';
 
 function App() {
   return (
@@ -21,7 +22,8 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<ProductsContainer />} />
-          <Route path="/:id" element={<ProductDetail />} />
+          <Route path="/product/:id" element={<ProductDetail />} />
+          <Route path="/cart/:id" element={<Cart />} />
         </Routes>
       </Router>
       </ThemeProvider>

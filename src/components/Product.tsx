@@ -59,11 +59,11 @@ export interface IProps {
 const Product: React.FC<IProps> = ({product}) => {
     return(
         <StyledWrapper>
-            <Link to={`/${product._id}`}>
+            <Link to={`/product/${product._id}`}>
             <img src={product.image} alt={product.name} />
             </Link>
             <div className="body">
-            <Link to={`/${product._id}`}>
+            <Link to={`/product/${product._id}`}>
                 <p>{product.name}</p>
             </Link>
                 <Rating rating={product.rating} reviews={product.numReviews}/>

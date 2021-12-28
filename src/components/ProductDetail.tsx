@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { productDetails as getDetails } from '../state/actions/productActions';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { IProps } from './Product';
 import Rating from './Rating';
 import StyledButton from './StyledButton';
 
@@ -64,39 +65,20 @@ const Wrapper = styled.div`
 
 
 const ProductDetail = () => {
+
+    const productDetails = useSelector((state: any) => state.productDetails);
+    const {loading, product, error} = productDetails;
     
     const {id} = useParams();
     const navigate = useNavigate();
-    
-    const [product, setProduct] = useState<IProps["product"] | null>(null);
-    const [loading, setLoading] = useState<any>(false);
-    const [error, setError] = useState<any>(false);
-
     const [qty, setQty] = useState(1);
 
+    const dispatch = useDispatch();
     useEffect(()=>{
-        const fetchProduct = async() => {
-            await setLoading("Loading data, please wait...");
+        dispatch(getDetails(id));
+    }, [id, dispatch]);
 
-            try {
-                const res = await fetch(`http://localhost:5000/api/products/${id}`);
-                if (res.ok) {
-                    const data = await res.json();
-                    setProduct(data);
-                    setLoading(false);
-                } else if (res.status === 404) {
-                    setError("Sorry, product not found");
-                    setLoading(false);
-                }
-            } catch(err) {
-                console.log(err);
-                setError("Sorry, product not found");
-                setLoading(false);
-            }
-            
-        };
-        fetchProduct();
-    }, [id]);
+    useEffect(()=>console.log(loading));
 
     const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setQty(Number(e.target.value));
@@ -109,7 +91,7 @@ const ProductDetail = () => {
     return (
         <>
         <StyledLink to="/">Back to result</StyledLink>
-        {loading ? <h1>{loading}</h1>
+        {loading ? <h1>Loading data, please wait...</h1>
         : error ? <h1>{error}</h1>
         : product ?
         <Wrapper>

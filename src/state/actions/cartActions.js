@@ -13,5 +13,6 @@ export const addToCart = (productId, qty) => {
         qty,
       },
     });
+    localStorage.setItem("cartItems", JSON.stringify(getState().cart.cart));
   };
 };

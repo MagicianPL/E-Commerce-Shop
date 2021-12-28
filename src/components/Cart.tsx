@@ -10,7 +10,9 @@ const Cart = () => {
 
     const dispatch = useDispatch();
     useEffect(()=>{
-        dispatch(addToCart(id, qty));
+        if(id) {
+            dispatch(addToCart(id, qty));
+        }
     }, [dispatch, id, qty]);
 
     return (

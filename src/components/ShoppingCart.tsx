@@ -1,6 +1,7 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { addToCart } from '../state/actions/cartActions';
 import StyledButton from './StyledButton';
 
 const StyledWrapper = styled.div`
@@ -28,21 +29,37 @@ const StyledWrapper = styled.div`
         p {
             font-size: 22px;
         }
+
+        select {
+            width: 45px;
+            font-size: 18px;
+        }
     }
 `;
 
 const ShoppingCart = () => {
 
     const cartItemsArr = useSelector((state: any) => state.cart.cart);
+    const dispatch = useDispatch();
+
+    const handleDeleteClick = (id: string) => {
+        //delete action
+        console.log(id);
+    }
 
     return (
         <StyledWrapper>
             <h1>Shopping Cart</h1>
-            {cartItemsArr.map((item: any) => <li>
+            {cartItemsArr.map((item: any) => <li key={item._id}>
                 <img src={item.image} alt={item.name} />
                 <p>{item.name}</p>
+                <select value={item.qty} onChange={e => dispatch(addToCart(item.product, Number(e.target.value)))}>
+                {[...Array(item.countInStock).keys()].map(
+                        x => <option key={x+1} value={x+1}>{x+1}</option>
+                    )}
+                </select>
                 <p>$ {item.price}</p>
-                <StyledButton width="auto" font="16">DELETE</StyledButton>
+                <StyledButton onClick={() => {handleDeleteClick(item.product)}} width="auto" font="16">DELETE</StyledButton>
             </li>)}
         </StyledWrapper>
     );

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
@@ -37,6 +38,11 @@ const StyledHeader = styled.header`
             line-height: 22px;
         }
     }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
 `;
 
 const Header = () => {
@@ -47,10 +53,10 @@ const Header = () => {
         <StyledHeader>
             <p>Sign In</p>
             <h1>E-Commerce Shop</h1>
-            <p className="cart">
+            <Link to="/cart"><p className="cart">
                 Cart
                 {cartArr.length > 0 ? <span>{cartArr.length}</span> : null}
-            </p>
+            </p></Link>
         </StyledHeader>
     );
 };

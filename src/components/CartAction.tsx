@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import StyledButton from './StyledButton';
+import { useNavigate } from 'react-router-dom';
 
 const StyledWrapper = styled.div`
     width: 100%;
@@ -21,11 +22,16 @@ const StyledWrapper = styled.div`
 
 const CartAction = () => {
     const cartItemsArr = useSelector((state: any) => state.cart.cart);
+    const navigate = useNavigate();
+
+    const handleCheckout = () => {
+        navigate("/signin?redirect=shipping");
+    };
 
     return(
         <StyledWrapper>
             <p>Subtotal ({cartItemsArr.reduce((a: any, c: any) => a + Number(c.qty), 0)} items): {cartItemsArr.reduce((a: any, c: any) => a + Number(c.price) * Number(c.qty), 0)} $</p>
-            <StyledButton>Proceed to Checkout</StyledButton>
+            <StyledButton onClick={handleCheckout}>Proceed to Checkout</StyledButton>
         </StyledWrapper>
     );
 };

@@ -19,17 +19,20 @@ function App() {
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
+      <Router>
         <Header />
         <StyledHeroBg />
       <StyledMainWrapper>
-      <Router>
+      
         <Routes>
           <Route path="/" element={<ProductsContainer />} />
           <Route path="/product/:id" element={<ProductDetail />} />
+          <Route path="/cart" element={<Cart />} />
           <Route path="/cart/:id" element={<Cart />} />
         </Routes>
+        </StyledMainWrapper>
       </Router>
-      </StyledMainWrapper>
+      
       </ThemeProvider>
     </div>
   );

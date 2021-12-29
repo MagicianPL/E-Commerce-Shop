@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { addToCart } from '../state/actions/cartActions';
@@ -33,6 +34,11 @@ const StyledWrapper = styled.div`
             width: 45px;
             font-size: 18px;
         }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
     }
 `;
 
@@ -50,8 +56,8 @@ const ShoppingCart = () => {
         <StyledWrapper>
             <h1>Shopping Cart</h1>
             {cartItemsArr.map((item: any) => <li key={item._id}>
-                <img src={item.image} alt={item.name} />
-                <p>{item.name}</p>
+               <Link to={`/product/${item.product}`}><img src={item.image} alt={item.name} /></Link>
+               <Link to={`/product/${item.product}`}><p>{item.name}</p></Link>
                 <select value={item.qty} onChange={e => dispatch(addToCart(item.product, Number(e.target.value)))}>
                 {[...Array(item.countInStock).keys()].map(
                         x => <option key={x+1} value={x+1}>{x+1}</option>

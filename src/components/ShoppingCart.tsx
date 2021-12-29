@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { addToCart } from '../state/actions/cartActions';
+import { addToCart, deleteCartItem } from '../state/actions/cartActions';
 import StyledButton from './StyledButton';
 
 const StyledWrapper = styled.div`
@@ -49,7 +49,7 @@ const ShoppingCart = () => {
 
     const handleDeleteClick = (id: string) => {
         //delete action
-        console.log(id);
+        dispatch(deleteCartItem(id));
     }
 
     return (

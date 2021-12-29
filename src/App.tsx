@@ -12,6 +12,7 @@ import StyledHeroBg from './components/StyledHeroBg';
 import ProductsContainer from './components/ProductsContainer';
 import ProductDetail from './components/ProductDetail';
 import Cart from './components/Cart';
+import StyledMainWrapper from './components/StyledMainWrapper';
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <Header />
         <StyledHeroBg />
+      <StyledMainWrapper>
       <Router>
         <Routes>
           <Route path="/" element={<ProductsContainer />} />
@@ -27,6 +29,7 @@ function App() {
           <Route path="/cart/:id" element={<Cart />} />
         </Routes>
       </Router>
+      </StyledMainWrapper>
       </ThemeProvider>
     </div>
   );

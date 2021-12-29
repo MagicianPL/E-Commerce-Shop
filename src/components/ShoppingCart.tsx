@@ -7,7 +7,6 @@ import StyledButton from './StyledButton';
 const StyledWrapper = styled.div`
     width: 100%;
     max-width: 800px;
-    border: 1px solid red;
     color: ${({theme}) => theme.colors.primary};
 
     h1 {

@@ -8,6 +8,7 @@ const StyledHeroBg = styled.div`
     background-position: center;
     opacity: 0.7;
     position: relative;
+    margin-bottom: 30px;
 
     &::after {
         content: "";

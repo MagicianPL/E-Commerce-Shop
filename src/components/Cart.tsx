@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams, useLocation } from 'react-router-dom';
 import { addToCart } from '../state/actions/cartActions';
+import ShoppingCart from './ShoppingCart';
 
 
 const Cart = () => {
@@ -17,9 +18,7 @@ const Cart = () => {
 
     return (
         <>
-        <h1>CART Component</h1>
-        <p>ID of product: {id}</p>
-        <p>Qty: {qty}</p>
+        <ShoppingCart />
         </>
     );
 };

@@ -27,7 +27,7 @@ const ProductsContainer = () => {
         <StyledWrapper>
             {loading ? <h1>Loading Data...</h1>
             : error ? <p>Sorry, something went wrong :(</p>
-            :
+            : 
             products.map((product: any) => <Product key={product._id} product={product} />)}
         </StyledWrapper>
     );

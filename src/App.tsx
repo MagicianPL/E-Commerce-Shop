@@ -13,6 +13,7 @@ import ProductsContainer from './components/ProductsContainer';
 import ProductDetail from './components/ProductDetail';
 import Cart from './components/Cart';
 import StyledMainWrapper from './components/StyledMainWrapper';
+import SignIn from './components/SignIn';
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/cart/:id" element={<Cart />} />
+          <Route path="/signin" element={<SignIn />} />
         </Routes>
         </StyledMainWrapper>
       </Router>

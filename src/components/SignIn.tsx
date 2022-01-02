@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Input from './Input';
 import StyledButton from './StyledButton';
 
-const StyledWrapper = styled.div`
+const StyledForm = styled.form`
     width: 100%;
     max-width: 1000px;
     margin: 0 auto;
@@ -36,14 +36,21 @@ const SignIn = () => {
         setPassword(e.target.value);
     };
 
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        console.log("Form is submitted");
+        console.log(email);
+        console.log(password);
+    };
+
     return (
-        <StyledWrapper>
+        <StyledForm onSubmit={handleSubmit}>
             <h1>Sign In</h1>
             <Input type="email" label="Email address" id="email" placeholder="Enter email" value={email} onChange={handleEmailChange} />
             <Input type="password" label="Password" id="password" placeholder="Enter password" value={password} onChange={handlePassChange} />
-            <StyledButton>Sign In</StyledButton>
+            <StyledButton type="submit">Sign In</StyledButton>
             <p>New customer? <Link to="/">Create your account</Link></p>
-        </StyledWrapper>
+        </StyledForm>
     );
 };
 

@@ -48,10 +48,15 @@ const StyledHeader = styled.header`
 const Header = () => {
     //cart array from redux store
     const cartArr = useSelector((state: any) => state.cart.cart);
+    const user = useSelector((state: any) => state.user);
+    const {userInfo} = user;
     
     return (
         <StyledHeader>
-            <p>Sign In</p>
+            {user.userInfo ?
+            <Link to="/"><p>{userInfo.name}</p></Link> :
+            <Link to="/signin"><p>Sign In</p></Link>
+            }
             <h1>E-Commerce Shop</h1>
             <Link to="/cart"><p className="cart">
                 Cart

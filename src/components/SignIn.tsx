@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Input from './Input';
 import StyledButton from './StyledButton';
+import { useDispatch } from 'react-redux';
+import { signIn } from '../state/actions/userActions';
 
 const StyledForm = styled.form`
     width: 100%;
@@ -36,8 +38,10 @@ const SignIn = () => {
         setPassword(e.target.value);
     };
 
+    const dispatch = useDispatch();
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        dispatch(signIn(email, password));
         console.log("Form is submitted");
         console.log(email);
         console.log(password);

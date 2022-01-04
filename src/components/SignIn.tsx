@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Input from './Input';
 import StyledButton from './StyledButton';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { signIn } from '../state/actions/userActions';
 
 const StyledForm = styled.form`
@@ -30,7 +30,9 @@ const SignIn = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const { search } = useLocation();
-    const redirect = search ? search.split("=")[1] : "/";
+    const redirect = search ? `/${search.split("=")[1]}` : "/";
+    const user = useSelector((state: any) => state.user);
+    const {userInfo, loading, error} = user;
 
     const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(e.target.value);
@@ -49,12 +51,18 @@ const SignIn = () => {
         console.log(password);
     };
 
+    const navigate = useNavigate();
+    console.log(userInfo)
     useEffect(() => {
-        console.log(redirect);
-    })
+       if (userInfo) {
+           navigate(redirect);
+       };
+    }, [navigate, redirect, userInfo]);
 
     return (
         <StyledForm onSubmit={handleSubmit}>
+            {loading && "Loading..."}
+            {error && error}
             <h1>Sign In</h1>
             <Input type="email" label="Email address" id="email" placeholder="Enter email" value={email} onChange={handleEmailChange} />
             <Input type="password" label="Password" id="password" placeholder="Enter password" value={password} onChange={handlePassChange} />

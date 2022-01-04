@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { FaAngleDown } from 'react-icons/fa';
+import { signout } from '../state/actions/userActions';
 
 const StyledHeader = styled.header`
     width: 100%;
@@ -88,6 +89,11 @@ const Header = () => {
     const cartArr = useSelector((state: any) => state.cart.cart);
     const user = useSelector((state: any) => state.user);
     const {userInfo} = user;
+
+    const dispatch = useDispatch();
+    const handleSignOut = () => {
+        dispatch(signout());
+    }
     
     return (
         <StyledHeader>
@@ -96,7 +102,7 @@ const Header = () => {
                 <p className="user-name">{userInfo.name} <FaAngleDown /></p>
                 <div className="dropdown">
                     <ul>
-                        <li>Sign Out</li>
+                        <li onClick={handleSignOut}>Sign Out</li>
                     </ul>
                 </div>
             </Link> :

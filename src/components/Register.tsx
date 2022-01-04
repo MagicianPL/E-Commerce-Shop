@@ -36,12 +36,20 @@ const SignIn = () => {
     const user = useSelector((state: any) => state.user);
     const {userInfo, loading, error} = user;
 
+    const handleLoginChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setName(e.target.value);
+    };
+
     const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(e.target.value);
     };
 
     const handlePassChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(e.target.value);
+    };
+
+    const handleConfirmedPassChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setConfirmedPassword(e.target.value);
     };
 
     const dispatch = useDispatch();
@@ -66,10 +74,12 @@ const SignIn = () => {
             {loading && "Loading..."}
             {error && error}
             <h1>Register</h1>
+            <Input type="text" label="Login" id="login" placeholder="Login" value={name} onChange={handleLoginChange} />
             <Input type="email" label="Email address" id="email" placeholder="Enter email" value={email} onChange={handleEmailChange} />
             <Input type="password" label="Password" id="password" placeholder="Enter password" value={password} onChange={handlePassChange} />
-            <StyledButton type="submit">Sign In</StyledButton>
-            <p>New customer? <Link to="/">Create your account</Link></p>
+            <Input type="password" label="Confirm Password" id="confirmedPassword" placeholder="Confirm password" value={confirmedPassword} onChange={handleConfirmedPassChange} />
+            <StyledButton type="submit">Register</StyledButton>
+            <p>Already have an account? <Link to="/signin">Login</Link></p>
         </StyledForm>
     );
 };

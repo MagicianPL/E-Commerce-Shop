@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { FaAngleDown } from 'react-icons/fa';
 
 const StyledHeader = styled.header`
     width: 100%;
@@ -16,16 +17,53 @@ const StyledHeader = styled.header`
         align-self: flex-end;
         cursor: pointer;
         transition: color 0.4s;
+        display: flex;
+        align-items: center;
 
         &:hover {
             color: ${({theme}) => theme.colors.tertiary};
         }
     }
 
-    .cart {
-        display: flex;
-        align-items: center;
+    svg {
+        position: relative;
+        top: 2px;
+    }
 
+    .dropdown {
+        visibility: hidden;
+        position: relative;
+
+        &:hover {
+            visibility: visible;
+        }
+
+        ul {
+            position: absolute;
+            right: 0;
+            top: 0;
+            list-style: none;
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            padding: 4px 8px 0 0;
+            font-size: 20px;
+
+            li {
+                transition: color 0.4s;
+
+                &:hover {
+                    color: ${({theme}) => theme.colors.tertiary};
+                }
+            }
+        }
+    }
+
+    .user-name:hover + .dropdown {
+        visibility: visible;
+    }
+
+    .cart  {
         span {
             width: 30px;
             height: 30px;
@@ -54,10 +92,17 @@ const Header = () => {
     return (
         <StyledHeader>
             {user.userInfo ?
-            <Link to="/"><p>{userInfo.name}</p></Link> :
+            <Link to="/">
+                <p className="user-name">{userInfo.name} <FaAngleDown /></p>
+                <div className="dropdown">
+                    <ul>
+                        <li>Sign Out</li>
+                    </ul>
+                </div>
+            </Link> :
             <Link to="/signin"><p>Sign In</p></Link>
             }
-            <h1>E-Commerce Shop</h1>
+            <Link to="/"><h1>E-Commerce Shop</h1></Link>
             <Link to="/cart"><p className="cart">
                 Cart
                 {cartArr.length > 0 ? <span>{cartArr.length}</span> : null}

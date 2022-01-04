@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Input from './Input';
 import StyledButton from './StyledButton';
 import { useDispatch } from 'react-redux';
@@ -29,6 +29,8 @@ const StyledForm = styled.form`
 const SignIn = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const { search } = useLocation();
+    const redirect = search ? search.split("=")[1] : "/";
 
     const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(e.target.value);
@@ -46,6 +48,10 @@ const SignIn = () => {
         console.log(email);
         console.log(password);
     };
+
+    useEffect(() => {
+        console.log(redirect);
+    })
 
     return (
         <StyledForm onSubmit={handleSubmit}>

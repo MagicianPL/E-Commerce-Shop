@@ -67,7 +67,7 @@ const SignIn = () => {
             <Input type="email" label="Email address" id="email" placeholder="Enter email" value={email} onChange={handleEmailChange} />
             <Input type="password" label="Password" id="password" placeholder="Enter password" value={password} onChange={handlePassChange} />
             <StyledButton type="submit">Sign In</StyledButton>
-            <p>New customer? <Link to="/">Create your account</Link></p>
+            <p>New customer? <Link to="/register">Create your account</Link></p>
         </StyledForm>
     );
 };

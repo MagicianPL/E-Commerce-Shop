@@ -4,7 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Input from './Input';
 import StyledButton from './StyledButton';
 import { useDispatch, useSelector } from 'react-redux';
-import { signIn } from '../state/actions/userActions';
+import { register, signIn } from '../state/actions/userActions';
 
 const StyledForm = styled.form`
     width: 100%;
@@ -26,7 +26,7 @@ const StyledForm = styled.form`
     }
 `;
 
-const SignIn = () => {
+const Register = () => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -34,7 +34,9 @@ const SignIn = () => {
     const { search } = useLocation();
     const redirect = search ? `/${search.split("=")[1]}` : "/";
     const user = useSelector((state: any) => state.user);
-    const {userInfo, loading, error} = user;
+    const {userInfo} = user;
+    const registerReducer = useSelector((state: any) => state.userRegisterReducer);
+    const {loading, error} = registerReducer;
 
     const handleLoginChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setName(e.target.value);
@@ -53,16 +55,19 @@ const SignIn = () => {
     };
 
     const dispatch = useDispatch();
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        dispatch(signIn(email, password));
-        console.log("Form is submitted");
-        console.log(email);
-        console.log(password);
+        if (password === confirmedPassword) {
+            await dispatch(register(name, email, password));
+            dispatch(signIn(email, password));
+        } else {
+            //show modal
+            alert("Passwords are not the same!")
+        }
     };
 
     const navigate = useNavigate();
-    console.log(userInfo)
+    
     useEffect(() => {
        if (userInfo) {
            navigate(redirect);
@@ -73,7 +78,7 @@ const SignIn = () => {
         <StyledForm onSubmit={handleSubmit}>
             {loading && "Loading..."}
             {error && error}
-            <h1>Register</h1>
+            <h1>Create Account</h1>
             <Input type="text" label="Login" id="login" placeholder="Login" value={name} onChange={handleLoginChange} />
             <Input type="email" label="Email address" id="email" placeholder="Enter email" value={email} onChange={handleEmailChange} />
             <Input type="password" label="Password" id="password" placeholder="Enter password" value={password} onChange={handlePassChange} />
@@ -84,4 +89,4 @@ const SignIn = () => {
     );
 };
 
-export default SignIn;
+export default Register;

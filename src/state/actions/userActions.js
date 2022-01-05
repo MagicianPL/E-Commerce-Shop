@@ -54,17 +54,22 @@ export const signIn = (email, password) => async (dispatch) => {
         password,
       }),
     });
+    const data = await response.json();
+
     if (response.status !== 200) {
-      dispatch({ type: USER_SIGN_IN_FAILED });
+      dispatch({ type: USER_SIGN_IN_FAILED, payload: data.error });
       return;
     }
-    const data = await response.json();
+
     console.log(data);
     localStorage.setItem("userInfo", JSON.stringify(data));
     dispatch({ type: USER_SIGN_IN_SUCCESS, payload: data });
   } catch (err) {
     console.log(err);
-    dispatch({ type: USER_SIGN_IN_FAILED });
+    dispatch({
+      type: USER_SIGN_IN_FAILED,
+      payload: "Sorry, something gone wrong",
+    });
   }
 };
 

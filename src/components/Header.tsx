@@ -34,6 +34,7 @@ const StyledHeader = styled.header`
     .dropdown {
         visibility: hidden;
         position: relative;
+        min-width: 97px;
 
         &:hover {
             visibility: visible;

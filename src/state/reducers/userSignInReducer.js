@@ -12,7 +12,7 @@ export const userSignInReducer = (state = {}, action) => {
     case USER_SIGN_IN_SUCCESS:
       return { loading: false, userInfo: action.payload };
     case USER_SIGN_IN_FAILED:
-      return { loading: false, error: "Sorry, something gone wrong" };
+      return { loading: false, error: action.payload };
     case USER_SIGN_OUT:
       return {};
     default:

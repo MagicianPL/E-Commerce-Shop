@@ -29,13 +29,14 @@ interface IProps {
     type: string
     onChange: React.ChangeEventHandler<HTMLInputElement>
     value: string
+    name?: string
 }
 
-const Input: React.FC<IProps> = ({label, id, placeholder, type, onChange, value}) => {
+const Input: React.FC<IProps> = ({label, id, placeholder, type, onChange, value, name}) => {
     return(
         <StyledWrapper>
             <label htmlFor={id}>{label}</label>
-            <input id={id} type={type} placeholder={placeholder ? placeholder : ""} onChange={onChange} value={value}/>
+            <input id={id} type={type} placeholder={placeholder ? placeholder : ""} onChange={onChange} value={value} name={name ? name : ""}/>
         </StyledWrapper>
     );
 };

@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Steps from './Steps';
 import Input from './Input';
 import StyledButton from './StyledButton';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { saveShippingAddress } from '../state/actions/cartActions';
+import { useNavigate } from 'react-router-dom';
 
 const StyledWrapper = styled.div`
     width: 100%;
@@ -13,6 +14,15 @@ const StyledWrapper = styled.div`
 `;
 
 const ShippingAddress = () => {
+    const navigate = useNavigate();
+    const user = useSelector((state: any) => state.user.userInfo);
+    //if user is not signIn - redirect to SignIn page
+    useEffect(() => {
+        if (!user) {
+            navigate("/signin");
+        }
+    })
+
     const initialValues = {
         fullName: "",
         address: "",
@@ -34,6 +44,7 @@ const ShippingAddress = () => {
     const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         dispatch(saveShippingAddress(inputValues));
+        navigate("/payment");
     };
 
     return (

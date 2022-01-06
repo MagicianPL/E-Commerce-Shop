@@ -11,6 +11,10 @@ const StyledWrapper = styled.div`
     width: 100%;
     max-width: 1000px;
     margin: 0 auto;
+
+    h1 {
+        margin-bottom: 20px;
+    }
 `;
 
 const ShippingAddress = () => {

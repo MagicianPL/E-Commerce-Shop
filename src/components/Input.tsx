@@ -30,13 +30,14 @@ interface IProps {
     onChange: React.ChangeEventHandler<HTMLInputElement>
     value: string
     name?: string
+    isRequired?: boolean
 }
 
-const Input: React.FC<IProps> = ({label, id, placeholder, type, onChange, value, name}) => {
+const Input: React.FC<IProps> = ({label, id, placeholder, type, onChange, value, name, isRequired}) => {
     return(
         <StyledWrapper>
             <label htmlFor={id}>{label}</label>
-            <input id={id} type={type} placeholder={placeholder ? placeholder : ""} onChange={onChange} value={value} name={name ? name : ""}/>
+            <input id={id} type={type} placeholder={placeholder ? placeholder : ""} onChange={onChange} value={value} name={name ? name : ""} required={isRequired ? isRequired : undefined}/>
         </StyledWrapper>
     );
 };

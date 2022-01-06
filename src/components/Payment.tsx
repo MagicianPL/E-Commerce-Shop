@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { savePayment } from '../state/actions/cartActions';
 import Steps from './Steps';
 import StyledButton from './StyledButton';
 
@@ -20,6 +23,11 @@ const StyledWrapper = styled.div`
         align-items: center;
         margin-bottom: 15px;
 
+        input {
+            width: 20px;
+            height: 20px;
+        }
+
         input,label {
             cursor: pointer;
         }
@@ -31,17 +39,36 @@ const StyledWrapper = styled.div`
 `;
 
 const Payment = () => {
+    // If address is an empy object (from prev step) - redirect
+    const navigate = useNavigate();
+    const address = useSelector((state: any) => state.cart.address);
+    console.log(address);
+    useEffect(()=>{
+        if (Object.keys(address).length === 0) {
+            navigate("/shipping");
+        }
+    });
+
+
     const [payment, setPayment] = useState("Paypal");
 
     const handlePaymentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
        setPayment(e.target.value);
     };
 
+    
+    const dispatch = useDispatch();
+    const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        dispatch(savePayment(payment));
+        navigate("/placeorder");
+    };
+
     return (
         <StyledWrapper>
             <Steps step="step3" />
             <h1>Payment</h1>
-            <form>
+            <form onSubmit={handleFormSubmit}>
                 <div className="option">
                     <input onChange={handlePaymentChange} type="radio" id="paypal" value="Paypal" name="payment" defaultChecked />
                     <label htmlFor="paypal">Paypal</label>

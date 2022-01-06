@@ -17,6 +17,7 @@ import SignIn from './components/SignIn';
 import ShippingAddress from './components/ShippingAddress';
 import Register from './components/Register';
 import Payment from './components/Payment';
+import ScrollToTop from './helpers/ScrollToTop';
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
     <div className="App">
       <ThemeProvider theme={theme}>
       <Router>
+        <ScrollToTop />
         <Header />
         <StyledHeroBg />
       <StyledMainWrapper>

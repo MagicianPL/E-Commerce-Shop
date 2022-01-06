@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import Steps from './Steps';
 import Input from './Input';
 import StyledButton from './StyledButton';
+import { useDispatch } from 'react-redux';
+import { saveShippingAddress } from '../state/actions/cartActions';
 
 const StyledWrapper = styled.div`
     width: 100%;
@@ -28,8 +30,10 @@ const ShippingAddress = () => {
         })
     };
 
+    const dispatch = useDispatch();
     const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        dispatch(saveShippingAddress(inputValues));
     };
 
     return (

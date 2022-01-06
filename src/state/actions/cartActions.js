@@ -1,4 +1,8 @@
-import { ADD_TO_CART, DELETE_CART_ITEM } from "../constants/cardConstants";
+import {
+  ADD_TO_CART,
+  DELETE_CART_ITEM,
+  SAVE_SHIPPING_ADDRESS,
+} from "../constants/cartConstants";
 
 export const addToCart = (productId, qty) => {
   return async (dispatch, getState) => {
@@ -23,4 +27,8 @@ export const deleteCartItem = (id) => (dispatch, getState) => {
     payload: id,
   });
   localStorage.setItem("cartItems", JSON.stringify(getState().cart.cart));
+};
+
+export const saveShippingAddress = (data) => (dispatch) => {
+  dispatch({ type: SAVE_SHIPPING_ADDRESS, payload: data });
 };

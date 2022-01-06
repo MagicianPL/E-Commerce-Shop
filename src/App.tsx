@@ -14,6 +14,7 @@ import ProductDetail from './components/ProductDetail';
 import Cart from './components/Cart';
 import StyledMainWrapper from './components/StyledMainWrapper';
 import SignIn from './components/SignIn';
+import ShippingAddress from './components/ShippingAddress';
 import Register from './components/Register';
 
 
@@ -32,6 +33,7 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/cart/:id" element={<Cart />} />
           <Route path="/signin" element={<SignIn />} />
+          <Route path="shipping" element={<ShippingAddress />} />
           <Route path="/register" element={<Register />} />
         </Routes>
         </StyledMainWrapper>

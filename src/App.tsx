@@ -16,6 +16,7 @@ import StyledMainWrapper from './components/StyledMainWrapper';
 import SignIn from './components/SignIn';
 import ShippingAddress from './components/ShippingAddress';
 import Register from './components/Register';
+import Payment from './components/Payment';
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
           <Route path="/cart/:id" element={<Cart />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="shipping" element={<ShippingAddress />} />
+          <Route path="/payment" element={<Payment />} />
           <Route path="/register" element={<Register />} />
         </Routes>
         </StyledMainWrapper>

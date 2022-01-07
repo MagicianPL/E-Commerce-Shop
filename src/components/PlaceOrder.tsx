@@ -9,6 +9,7 @@ import OrderAction from './OrderAction';
 const StyledWrapper = styled.div`
     width: 100%;
     display: flex;
+    gap: 20px;
 
     h1 {
         margin-bottom: 20px;
@@ -20,11 +21,11 @@ const PlaceOrder = () => {
     const navigate = useNavigate();
     const address = useSelector((state: any) => state.cart.address);
     
-    /*useEffect(()=>{
+    useEffect(()=>{
         if (Object.keys(address).length === 0) {
             navigate("/shipping");
         }
-    });*/
+    });
 
     return (
         <>

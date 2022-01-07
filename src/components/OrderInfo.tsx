@@ -5,7 +5,8 @@ import styled from 'styled-components';
 
 const StyledSection = styled.section`
     width: 100%;
-    
+    flex: 1.5;
+
     & > div {
         border: 1px solid ${({theme}) => theme.colors.tertiary};
         padding: 25px 12px 15px 12px;
@@ -50,7 +51,7 @@ const OrderInfo = () => {
     const { fullName, address, city, postalCode, country } = useSelector((state: any) => state.cart.address);
     const paymentOption = useSelector((state: any) => state.cart.payment);
     const products = useSelector((state: any) => state.cart.cart);
-    console.log(products);
+   
 
     return (
         <StyledSection>

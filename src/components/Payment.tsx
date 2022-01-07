@@ -42,7 +42,7 @@ const Payment = () => {
     // If address is an empy object (from prev step) - redirect
     const navigate = useNavigate();
     const address = useSelector((state: any) => state.cart.address);
-    console.log(address);
+    
     useEffect(()=>{
         if (Object.keys(address).length === 0) {
             navigate("/shipping");
@@ -65,8 +65,9 @@ const Payment = () => {
     };
 
     return (
+        <>
+        <Steps step="step3" />
         <StyledWrapper>
-            <Steps step="step3" />
             <h1>Payment</h1>
             <form onSubmit={handleFormSubmit}>
                 <div className="option">
@@ -80,6 +81,7 @@ const Payment = () => {
                 <StyledButton>Continue</StyledButton>
             </form>
         </StyledWrapper>
+        </>
     );
 };
 

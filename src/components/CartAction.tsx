@@ -31,7 +31,7 @@ const CartAction = () => {
     return(
         <StyledWrapper>
             <p>Subtotal ({cartItemsArr.reduce((a: any, c: any) => a + Number(c.qty), 0)} items): {cartItemsArr.reduce((a: any, c: any) => a + Number(c.price) * Number(c.qty), 0)} $</p>
-            <StyledButton onClick={handleCheckout}>Proceed to Checkout</StyledButton>
+            <StyledButton disabled={cartItemsArr.length > 0 ? false : true} onClick={handleCheckout}>Proceed to Checkout</StyledButton>
         </StyledWrapper>
     );
 };

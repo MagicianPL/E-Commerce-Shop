@@ -4,11 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Steps from './Steps';
 import OrderInfo from './OrderInfo';
+import OrderAction from './OrderAction';
 
 const StyledWrapper = styled.div`
     width: 100%;
-    max-width: 1000px;
-    margin: 0 auto;
+    display: flex;
 
     h1 {
         margin-bottom: 20px;
@@ -20,18 +20,18 @@ const PlaceOrder = () => {
     const navigate = useNavigate();
     const address = useSelector((state: any) => state.cart.address);
     
-    useEffect(()=>{
+    /*useEffect(()=>{
         if (Object.keys(address).length === 0) {
             navigate("/shipping");
         }
-    });
+    });*/
 
     return (
         <>
         <Steps step="step4" />
         <StyledWrapper>
-            <h1>Place Order</h1>
             <OrderInfo />
+            <OrderAction />
         </StyledWrapper>
         </>
     );

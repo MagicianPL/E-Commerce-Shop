@@ -32,6 +32,9 @@ const OrderAction = () => {
     const tax = (0.23 * summaryPrice).toFixed(2);
     const totalOrderPrice = summaryPrice + 10 + Number(tax);
     
+    const handlePlaceOrder = () => {
+        //action
+    };
 
     return (
         <StyledWrapper>
@@ -40,7 +43,7 @@ const OrderAction = () => {
             <p><span>Shipping</span> <span>$10</span></p>
             <p><span>Tax</span> <span>${tax}</span></p>
             <p className="bold"><span>Order Total</span> <span>${totalOrderPrice.toFixed(2)}</span></p>
-            <StyledButton>Place Order</StyledButton>
+            <StyledButton onClick={handlePlaceOrder}>Place Order</StyledButton>
         </StyledWrapper>
     );
 };

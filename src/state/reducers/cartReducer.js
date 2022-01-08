@@ -1,6 +1,7 @@
 import {
   ADD_TO_CART,
   DELETE_CART_ITEM,
+  EMPTY_CART,
   SAVE_PAYMENT_METHOD,
   SAVE_SHIPPING_ADDRESS,
 } from "../constants/cartConstants";
@@ -41,6 +42,12 @@ const cartReducer = (state = { cart: [] }, action) => {
       return {
         ...state,
         payment: action.payload,
+      };
+
+    case EMPTY_CART:
+      return {
+        ...state,
+        cart: [],
       };
 
     default:

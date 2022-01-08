@@ -1,6 +1,7 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { createOrder } from '../state/actions/orderActions';
 import StyledButton from './StyledButton';
 
 const StyledWrapper = styled.div`
@@ -26,14 +27,27 @@ const StyledWrapper = styled.div`
 
 const OrderAction = () => {
     const items = useSelector((state: any) => state.cart.cart);
+    const address = useSelector((state: any) => state.cart.address);
+    const payment = useSelector((state: any) => state.cart.payment);
     
     //total price of all items
     const summaryPrice = items.reduce((a: any, c: any) => a + Number(c.qty) * Number(c.price), 0);
     const tax = (0.23 * summaryPrice).toFixed(2);
     const totalOrderPrice = summaryPrice + 10 + Number(tax);
     
+    const dispatch = useDispatch();
     const handlePlaceOrder = () => {
+        const order = {
+            orderItems: items,
+            shippingAddress: address,
+            payment: payment,
+            itemsPrice: summaryPrice,
+            shippingPrice: 10,
+            taxPrice: tax,
+            totalPrice: totalOrderPrice,
+        }
         //action
+        dispatch(createOrder(order))
     };
 
     return (

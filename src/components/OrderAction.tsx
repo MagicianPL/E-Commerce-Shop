@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { createOrder } from '../state/actions/orderActions';
+import { CREATE_ORDER_RESET } from '../state/constants/orderConstants';
 import StyledButton from './StyledButton';
 
 const StyledWrapper = styled.div`
@@ -29,6 +31,7 @@ const OrderAction = () => {
     const items = useSelector((state: any) => state.cart.cart);
     const address = useSelector((state: any) => state.cart.address);
     const payment = useSelector((state: any) => state.cart.payment);
+    const {loading, error, success, order} = useSelector((state: any) => state.createOrder);
     
     //total price of all items
     const summaryPrice = items.reduce((a: any, c: any) => a + Number(c.qty) * Number(c.price), 0);
@@ -50,6 +53,14 @@ const OrderAction = () => {
         dispatch(createOrder(order))
     };
 
+    const navigate = useNavigate();
+    useEffect(() => {
+        if(success) {
+            navigate(`/orderDetails/${order._id}`)
+            dispatch({type: CREATE_ORDER_RESET});
+        }
+    }, [success, navigate, order, dispatch]);
+
     return (
         <StyledWrapper>
             <h1>Order Summary</h1>
@@ -58,6 +69,8 @@ const OrderAction = () => {
             <p><span>Tax</span> <span>${tax}</span></p>
             <p className="bold"><span>Order Total</span> <span>${totalOrderPrice.toFixed(2)}</span></p>
             <StyledButton onClick={handlePlaceOrder}>Place Order</StyledButton>
+            {loading && <p>Loading, please wait</p>}
+            {error && <p>{error}</p>}
         </StyledWrapper>
     );
 };

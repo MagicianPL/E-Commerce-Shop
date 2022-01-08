@@ -10,16 +10,18 @@ export const createOrder = (order) => async (dispatch, getState) => {
 
   try {
     const token = getState().user.userInfo.token;
-    fetch("http://localhost:5000/api/orders", {
+    const res = await fetch("http://localhost:5000/api/orders", {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
         authorization: `Bearer ${token}`,
       },
-      body: order,
+      body: JSON.stringify(order),
     });
-    dispatch({ type: CREATE_ORDER_SUCCESS, payload: order });
+    const data = await res.json();
+
+    dispatch({ type: CREATE_ORDER_SUCCESS, payload: data.order });
     dispatch({ type: EMPTY_CART });
     localStorage.removeItem("cartItems");
   } catch (err) {

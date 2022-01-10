@@ -56,7 +56,7 @@ const OrderAction = () => {
     const navigate = useNavigate();
     useEffect(() => {
         if(success) {
-            navigate(`/orderDetails/${order._id}`)
+            navigate(`/order/${order._id}`)
             dispatch({type: CREATE_ORDER_RESET});
         }
     }, [success, navigate, order, dispatch]);

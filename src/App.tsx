@@ -18,6 +18,7 @@ import ShippingAddress from './components/ShippingAddress';
 import Register from './components/Register';
 import Payment from './components/Payment';
 import PlaceOrder from './components/PlaceOrder';
+import PlacedOrderScreen from './components/PlacedOrderScreen';
 import ScrollToTop from './helpers/ScrollToTop';
 
 
@@ -40,6 +41,7 @@ function App() {
           <Route path="shipping" element={<ShippingAddress />} />
           <Route path="/payment" element={<Payment />} />
           <Route path="/placeorder" element={<PlaceOrder />} />
+          <Route path="/order/:id" element={<PlacedOrderScreen />} />
           <Route path="/register" element={<Register />} />
         </Routes>
         </StyledMainWrapper>

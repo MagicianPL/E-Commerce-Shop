@@ -6,6 +6,7 @@ import { getSingleOrder } from '../state/actions/orderActions';
 
 const StyledWrapper = styled.div`
     width: 100%;
+    margin-top: 25px;
     display: flex;
     gap: 20px;
 
@@ -93,6 +94,8 @@ const PlacedOrderScreen = () => {
     }, [id, dispatch]);
 
     return (
+    <>
+    {order && <h1>Order {id}</h1>}
     <StyledWrapper>
         {order &&
         <>
@@ -128,6 +131,7 @@ const PlacedOrderScreen = () => {
     </>
         }
     </StyledWrapper>
+    </>
     );
 };
 

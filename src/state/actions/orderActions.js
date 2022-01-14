@@ -38,9 +38,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
 export const getSingleOrder = (id) => async (dispatch) => {
   dispatch({ type: GET_ORDER_REQUEST });
   try {
-    const res = await fetch(
-      `http://localhost:5000/api/orders/61dc88ea83b5946f4c18eb8t`
-    );
+    const res = await fetch(`http://localhost:5000/api/orders/${id}`);
     const data = await res.json();
     if (res.status !== 200) {
       dispatch({ type: GET_ORDER_FAILED, payload: data.message });

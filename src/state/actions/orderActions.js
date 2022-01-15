@@ -6,6 +6,9 @@ import {
   GET_ORDER_FAILED,
   GET_ORDER_REQUEST,
   GET_ORDER_SUCCESS,
+  PAY_ORDER_FAILED,
+  PAY_ORDER_REQUEST,
+  PAY_ORDER_SUCCESS,
 } from "../constants/orderConstants";
 
 export const createOrder = (order) => async (dispatch, getState) => {
@@ -51,4 +54,15 @@ export const getSingleOrder = (id) => async (dispatch, getState) => {
   } catch (err) {
     dispatch({ type: GET_ORDER_FAILED, payload: err.message });
   }
+};
+
+export const payOrder = (id) => async (dispatch) => {
+  dispatch({ type: PAY_ORDER_REQUEST });
+  const res = await fetch(`http://localhost:5000/api/orders/pay/${id}`);
+  const data = await res.json();
+  if (!res.ok) {
+    dispatch({ type: PAY_ORDER_FAILED, payload: data });
+    return;
+  }
+  dispatch({ type: PAY_ORDER_SUCCESS });
 };

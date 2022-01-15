@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { getSingleOrder } from '../state/actions/orderActions';
+import StyledButton from './StyledButton';
 
 const StyledWrapper = styled.div`
     width: 100%;
@@ -115,8 +116,12 @@ const PlacedOrderScreen = () => {
 
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(getSingleOrder(id));
+            dispatch(getSingleOrder(id));
     }, [id, dispatch]);
+
+    const handleSuccessPayment = () => {
+        //handle that
+    };
 
     return (
     <>
@@ -156,6 +161,7 @@ const PlacedOrderScreen = () => {
         <p><span>Shipping</span> <span>$10</span></p>
         <p><span>Tax</span> <span>{tax}</span></p>
         <p className="bold"><span>Order Total</span> <span>${totalOrderPrice}</span></p>
+        {!order.isPaid && <StyledButton>{order.payment} pay</StyledButton>}
     </StyledOrderSummary>
     </>
         }

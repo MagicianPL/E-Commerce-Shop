@@ -1,46 +1,85 @@
 import React from 'react';
 import styled from 'styled-components';
+import StyledButton from './StyledButton';
 
-const StyledOverlay = styled.div`
+const StyledWrapper = styled.div`
     width: 100vw;
     height: 100vh;
-    background: black;
-    opacity: 0.5;
     position: fixed;
     top: 0;
     left: 0;
-`;
 
-const StyledModalWrapper = styled.div`
-    width: 100%;
-    height: 100vh;
-    overflow-y: auto;
-    position: relative;
+    &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: black;
+        opacity: 0.8;
+        z-index: -1;
+    }
 
     & > div {
         width: 100%;
-        max-width: 500px;
-        position: absolute;
-        top: 30px;
-        left: 50%;
-        transform: translateX(-50%);
-        padding: 15px;
-        border-radius: 8px;
-        background: white;
+        height: 100vh;
+        position: relative;
+        overflow-y: auto;
     }
 `;
 
-const PaymentModal = () => {
+const StyledModal = styled.div`
+width: 100%;
+max-width: 500px;
+position: absolute;
+top: 30px;
+left: 50%;
+transform: translateX(-50%);
+background: white;
+border-radius: 8px;
+padding: 15px;
+min-height: 200px;
+
+h1 {
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+p {
+    font-size: 22px;
+    margin-bottom: 25px;
+    font-weight: bold;
+}
+
+div:last-child {
+    width: 100%;
+    display: flex;
+    gap: 14px;
+}
+`;
+
+interface IProps {
+    onCancel: React.MouseEventHandler<HTMLButtonElement>
+}
+
+const PaymentModal: React.FC<IProps> = ({onCancel}) => {
+
+    const handleOrderPay = () => {
+        //action
+    }
+
     return (
-        <>
-            <StyledOverlay />
-            <StyledModalWrapper>
+        <StyledWrapper>
+            <div>
+            <StyledModal>
+                <h1>PAYMENT</h1>
+                <p>Do you want to flag this order as paid?</p>
                 <div>
-                    <h1>PAYMENT</h1>
-                    <p>Do you want to flag this order as paid?</p>
+                    <StyledButton onClick={handleOrderPay}>YES</StyledButton>
+                    <StyledButton onClick={onCancel}>CANCEL</StyledButton>
                 </div>
-            </StyledModalWrapper>
-        </>
+            </StyledModal>
+            </div>
+        </StyledWrapper>
     );
 };
 

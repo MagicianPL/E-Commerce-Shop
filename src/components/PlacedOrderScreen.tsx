@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { getSingleOrder } from '../state/actions/orderActions';
 import StyledButton from './StyledButton';
+import PaymentModal from './PaymentModal';
 
 const StyledWrapper = styled.div`
     width: 100%;
@@ -119,9 +120,7 @@ const PlacedOrderScreen = () => {
             dispatch(getSingleOrder(id));
     }, [id, dispatch]);
 
-    const handleSuccessPayment = () => {
-        //handle that
-    };
+    const [showModal, setShowModal] = useState(false);
 
     return (
     <>
@@ -161,8 +160,9 @@ const PlacedOrderScreen = () => {
         <p><span>Shipping</span> <span>$10</span></p>
         <p><span>Tax</span> <span>{tax}</span></p>
         <p className="bold"><span>Order Total</span> <span>${totalOrderPrice}</span></p>
-        {!order.isPaid && <StyledButton>{order.payment} pay</StyledButton>}
+        {!order.isPaid && <StyledButton onClick={()=> setShowModal(true)}>{order.payment} pay</StyledButton>}
     </StyledOrderSummary>
+        {showModal && <PaymentModal onCancel={()=> setShowModal(false)} />}
     </>
         }
     </StyledWrapper>

@@ -47,6 +47,7 @@ width: 100%;
 
         .success, .failure {
             text-align: center;
+            font-weight: bold;
         }
 
         .success {
@@ -115,12 +116,15 @@ const PlacedOrderScreen = () => {
     const tax = (0.23 * summaryPrice).toFixed(2);
     const totalOrderPrice = summaryPrice + 10 + Number(tax);
 
+    const [showModal, setShowModal] = useState(false);
+    const {success} = useSelector((state: any) => state.payOrderReducer);
     const dispatch = useDispatch();
     useEffect(() => {
             dispatch(getSingleOrder(id));
-    }, [id, dispatch]);
-
-    const [showModal, setShowModal] = useState(false);
+            if (success) {
+                setShowModal(false);
+            }
+    }, [id, dispatch, success]);
 
     return (
     <>
@@ -140,7 +144,7 @@ const PlacedOrderScreen = () => {
         <div>
             <h1>Payment</h1>
             <p><span>Method:</span> {order.payment}</p>
-            {order.isPaid ? <p className="success">Paid at `${order.paidAt}`</p> : <p className="failure">Not Paid</p>}
+            {order.isPaid ? <p className="success">Paid at {order.paidAt}</p> : <p className="failure">Not Paid</p>}
         </div>
         <div>
             <h1>Order Items</h1>
@@ -162,7 +166,7 @@ const PlacedOrderScreen = () => {
         <p className="bold"><span>Order Total</span> <span>${totalOrderPrice}</span></p>
         {!order.isPaid && <StyledButton onClick={()=> setShowModal(true)}>{order.payment} pay</StyledButton>}
     </StyledOrderSummary>
-        {showModal && <PaymentModal onCancel={()=> setShowModal(false)} />}
+        {showModal && <PaymentModal id={id} onCancel={()=> setShowModal(false)} />}
     </>
         }
     </StyledWrapper>

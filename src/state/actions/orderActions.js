@@ -56,9 +56,13 @@ export const getSingleOrder = (id) => async (dispatch, getState) => {
   }
 };
 
-export const payOrder = (id) => async (dispatch) => {
+export const payOrder = (id) => async (dispatch, getState) => {
+  const userInfo = getState().user.userInfo;
   dispatch({ type: PAY_ORDER_REQUEST });
-  const res = await fetch(`http://localhost:5000/api/orders/pay/${id}`);
+  const res = await fetch(`http://localhost:5000/api/orders/pay/${id}`, {
+    method: "PATCH",
+    headers: { authorization: `Bearer ${userInfo.token}` },
+  });
   const data = await res.json();
   if (!res.ok) {
     dispatch({ type: PAY_ORDER_FAILED, payload: data });

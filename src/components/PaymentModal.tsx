@@ -1,5 +1,7 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { payOrder } from '../state/actions/orderActions';
 import StyledButton from './StyledButton';
 
 const StyledWrapper = styled.div`
@@ -58,13 +60,17 @@ div:last-child {
 `;
 
 interface IProps {
-    onCancel: React.MouseEventHandler<HTMLButtonElement>
+    onCancel: React.MouseEventHandler<HTMLButtonElement>,
+    id: string | undefined,
 }
 
-const PaymentModal: React.FC<IProps> = ({onCancel}) => {
+const PaymentModal: React.FC<IProps> = ({onCancel, id}) => {
 
+    const {loading, error} = useSelector((state: any) => state.payOrderReducer);
+
+    const dispatch = useDispatch();
     const handleOrderPay = () => {
-        //action
+        dispatch(payOrder(id));
     }
 
     return (
@@ -73,6 +79,8 @@ const PaymentModal: React.FC<IProps> = ({onCancel}) => {
             <StyledModal>
                 <h1>PAYMENT</h1>
                 <p>Do you want to flag this order as paid?</p>
+                {loading && <p>Please wait...</p>}
+                {error && <p>Error: {error}</p>}
                 <div>
                     <StyledButton onClick={handleOrderPay}>YES</StyledButton>
                     <StyledButton onClick={onCancel}>CANCEL</StyledButton>

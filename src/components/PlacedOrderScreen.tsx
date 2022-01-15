@@ -13,6 +13,18 @@ const StyledWrapper = styled.div`
     h1 {
         margin-bottom: 20px;
     }
+
+    .loading, .error {
+        font-weight: bold;
+        text-align: center;
+        font-size: 25px;
+        flex: 1;
+        min-height: 20vh;
+    }
+
+    .error {
+        color: red;
+    }
 `;
 
 const StyledOrderInfo = styled.section`
@@ -29,6 +41,18 @@ width: 100%;
 
         p {
             margin-bottom: 15px;
+        }
+
+        .success, .failure {
+            text-align: center;
+        }
+
+        .success {
+            color: green;
+        }
+
+        .failure {
+            color: red;
         }
     }
 
@@ -84,6 +108,7 @@ const PlacedOrderScreen = () => {
     //Order ID
     const {id} = useParams();
     const order = useSelector((state: any) => state.getOrderReducer.order);
+    const {loading, error} = useSelector((state: any) => state.getOrderReducer);
     const summaryPrice = order ? order.orderItems.reduce((a: any, c: any) => a + Number(c.qty) * Number(c.price), 0) : null;
     const tax = (0.23 * summaryPrice).toFixed(2);
     const totalOrderPrice = summaryPrice + 10 + Number(tax);
@@ -97,6 +122,8 @@ const PlacedOrderScreen = () => {
     <>
     {order && <h1>Order {id}</h1>}
     <StyledWrapper>
+        {loading && <p className="loading">Loading data, please wait...</p>}
+        {error && <p className="error">{error}</p>}
         {order &&
         <>
         <StyledOrderInfo>
@@ -104,10 +131,12 @@ const PlacedOrderScreen = () => {
             <h1>Shipping</h1>
             <p><span>Name:</span> {order.shippingAddress.fullName}</p>
             <p><span>Address:</span> {order.shippingAddress.address}, {order.shippingAddress.postalCode}, {order.shippingAddress.city}, {order.shippingAddress.country}</p>
+            {order.isDelivered ? <p className="success">Delivered at `${order.deliveredAt}`</p> : <p className="failure">Not Delivered</p>}
         </div>
         <div>
             <h1>Payment</h1>
             <p><span>Method:</span> {order.payment}</p>
+            {order.isPaid ? <p className="success">Paid at `${order.paidAt}`</p> : <p className="failure">Not Paid</p>}
         </div>
         <div>
             <h1>Order Items</h1>

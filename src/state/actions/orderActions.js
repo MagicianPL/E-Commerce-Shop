@@ -3,6 +3,9 @@ import {
   CREATE_ORDER_FAILED,
   CREATE_ORDER_REQUEST,
   CREATE_ORDER_SUCCESS,
+  GET_ORDERS_FAILED,
+  GET_ORDERS_REQUEST,
+  GET_ORDERS_SUCCESS,
   GET_ORDER_FAILED,
   GET_ORDER_REQUEST,
   GET_ORDER_SUCCESS,
@@ -53,6 +56,27 @@ export const getSingleOrder = (id) => async (dispatch, getState) => {
     dispatch({ type: GET_ORDER_SUCCESS, payload: data });
   } catch (err) {
     dispatch({ type: GET_ORDER_FAILED, payload: err.message });
+  }
+};
+
+export const getOrders = () => async (dispatch, getState) => {
+  const userInfo = getState().user.userInfo;
+  dispatch({ type: GET_ORDERS_REQUEST });
+  try {
+    const res = await fetch(
+      `http://localhost:5000/api/orders/${userInfo._id}/main`,
+      {
+        headers: { authorization: `Bearer ${userInfo.token}` },
+      }
+    );
+    const data = await res.json();
+    if (res.status !== 200) {
+      dispatch({ type: GET_ORDERS_FAILED, payload: data.message });
+      return;
+    }
+    dispatch({ type: GET_ORDERS_SUCCESS, payload: data });
+  } catch (err) {
+    dispatch({ type: GET_ORDERS_FAILED, payload: err.message });
   }
 };
 

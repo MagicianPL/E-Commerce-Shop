@@ -35,6 +35,7 @@ const StyledHeader = styled.header`
         visibility: hidden;
         position: relative;
         min-width: 97px;
+        border-radius: 4px;
 
         &:hover {
             visibility: visible;
@@ -47,12 +48,18 @@ const StyledHeader = styled.header`
             list-style: none;
             width: 100%;
             display: flex;
+            flex-direction: column;
+            z-index: 1;
+            background: white;
             justify-content: flex-end;
-            padding: 4px 8px 0 0;
+            padding: 4px;
             font-size: 20px;
+            border-radius: 4px;
 
             li {
                 transition: color 0.4s;
+                background: white;
+                margin-bottom: 10px;
 
                 &:hover {
                     color: ${({theme}) => theme.colors.tertiary};
@@ -104,6 +111,7 @@ const Header = () => {
                 <div className="dropdown">
                     <ul>
                         <li onClick={handleSignOut}>Sign Out</li>
+                        <li>Profile</li>
                     </ul>
                 </div>
             </Link> :

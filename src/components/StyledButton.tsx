@@ -8,6 +8,8 @@ const StyledButton = styled.button<{width?: string, font?: string}>`
     font-size: ${(props) => props.font ? `${props.font}px` : "22px"};
     border-radius: 6px;
     cursor: pointer;
+    display: block;
+    text-align: center;
 `;
 
 export default StyledButton;

@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { getOrders } from '../state/actions/orderActions';
+import StyledButton from './StyledButton';
 
 const StyledWrapper = styled.div`
     width: 100%;
@@ -13,16 +15,38 @@ const StyledWrapper = styled.div`
     table {
         font-size: 24px;
         border: 1px solid ${({theme}) => theme.colors.primary};
-        padding: 10px;
         margin: 0 auto;
+        padding: 10px;
 
-        * {
+        tr > * {
             padding-right: 40px;
             text-align: left;
         }
 
-        th, td {
+        td {
             padding-bottom: 20px;
+        }
+
+        tr:first-child {
+            border-bottom: 1px solid black;
+            border-top: none;
+        }
+
+        tr {
+            border-top: 1px solid black;
+        }
+
+        tr:nth-child(even) {
+            background: ${({theme}) => theme.colors.secondary};
+        }
+
+        .btn {
+            padding: 0 5px;
+            vertical-align: middle;
+        }
+
+        a {
+            text-decoration: none;
         }
     }
 `
@@ -34,7 +58,7 @@ const OrdersHistory = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getOrders());
-    }, [dispatch])
+    }, [dispatch]);
 
     return (
         <StyledWrapper>
@@ -54,11 +78,11 @@ const OrdersHistory = () => {
                 {orders.map((order: any) =>
                 <tr>
                     <td>{order._id}</td>
-                    <td>{order.createdAt}</td>
-                    <td>{order.totalPrice}</td>
-                    <td>{order.isPaid ? "YES" : "NO"}</td>
+                    <td>{order.createdAt.toString().split('T')[0]}</td>
+                    <td>{order.totalPrice.toFixed(2)}</td>
+                    <td>{order.paidAt ? order.paidAt.toString().split('T')[0] : order.isPaid ? null : "NO"}</td>
                     <td>{order.isDelivered ? "YES" : "NO"}</td>
-                    <td>actions</td>
+                    <td className="btn"><Link to={`/order/${order._id}`}><StyledButton>Details</StyledButton></Link></td>
                 </tr>)}
             </table>
             : <p>No Orders</p> : null}

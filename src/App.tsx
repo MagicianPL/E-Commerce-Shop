@@ -19,6 +19,7 @@ import Register from './components/Register';
 import Payment from './components/Payment';
 import PlaceOrder from './components/PlaceOrder';
 import PlacedOrderScreen from './components/PlacedOrderScreen';
+import OrdersHistory from './components/OrdersHistory';
 import ScrollToTop from './helpers/ScrollToTop';
 
 
@@ -42,6 +43,7 @@ function App() {
           <Route path="/payment" element={<Payment />} />
           <Route path="/placeorder" element={<PlaceOrder />} />
           <Route path="/order/:id" element={<PlacedOrderScreen />} />
+          <Route path="/history" element={<OrdersHistory />} />
           <Route path="/register" element={<Register />} />
         </Routes>
         </StyledMainWrapper>

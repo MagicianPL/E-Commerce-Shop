@@ -19,6 +19,7 @@ const StyledHeader = styled.header`
         display: flex;
         justify-content: center;
         gap: 50px;
+        align-self: flex-end;
     }
 
     p {
@@ -121,6 +122,7 @@ const Header = () => {
                 <div className="dropdown">
                     <ul>
                         <li onClick={handleSignOut}>Sign Out</li>
+                        <li><Link to="/history">Orders</Link></li>
                         <li>Profile</li>
                     </ul>
                 </div>

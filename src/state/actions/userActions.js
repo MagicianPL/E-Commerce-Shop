@@ -1,4 +1,7 @@
 import {
+  USER_DETAILS_REQUEST,
+  USER_DETAILS_SUCCESS,
+  USER_DETAILS_FAILED,
   USER_REGISTER_FAILED,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
@@ -77,4 +80,23 @@ export const signout = () => (dispatch) => {
   localStorage.removeItem("cartItems");
   localStorage.removeItem("userInfo");
   dispatch({ type: USER_SIGN_OUT });
+};
+
+export const getDetails = (id) => async (dispatch, getState) => {
+  const token = getState().user.userInfo.token;
+  dispatch({ type: USER_DETAILS_REQUEST });
+
+  try {
+    const res = await fetch(`http://localhost:5000/api/users/${id}`, {
+      headers: { authorization: `Bearer ${token}` },
+    });
+    const data = await res.json();
+    if (res.ok) {
+      dispatch({ type: USER_DETAILS_SUCCESS, payload: data });
+    } else {
+      dispatch({ type: USER_DETAILS_FAILED, payload: data });
+    }
+  } catch (err) {
+    dispatch({ type: USER_DETAILS_FAILED, payload: err.message });
+  }
 };

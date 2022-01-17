@@ -1,5 +1,8 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { getDetails } from '../state/actions/userActions';
 import Input from './Input';
 
 const StyledWrapper = styled.div`
@@ -13,6 +16,19 @@ const StyledWrapper = styled.div`
 `
 
 const Profile = () => {
+
+    const userId = useSelector((state: any) => state.user.userInfo._id);
+
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    useEffect(() => {
+        if(userId) {
+            dispatch(getDetails(userId));
+        } else {
+            navigate("/signin");
+        }
+    },[dispatch, userId, navigate]);
+
     const handleInputChange = () => {
 
     };

@@ -15,7 +15,6 @@ const StyledHeader = styled.header`
 
     .flex1 {
         flex: 1;
-        border: 1px solid red;
         display: flex;
         justify-content: center;
         gap: 50px;
@@ -121,9 +120,9 @@ const Header = () => {
                 <p className="user-name">{userInfo.name} <FaAngleDown /></p>
                 <div className="dropdown">
                     <ul>
-                        <li onClick={handleSignOut}>Sign Out</li>
+                        <li><Link to="/profile">Profile</Link></li>
                         <li><Link to="/history">Orders</Link></li>
-                        <li>Profile</li>
+                        <li onClick={handleSignOut}>Sign Out</li>
                     </ul>
                 </div>
                 </div>

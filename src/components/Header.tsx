@@ -10,8 +10,16 @@ const StyledHeader = styled.header`
     padding: 30px 15px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: center;
     color: ${({theme}) => theme.colors.primary};
+
+    .flex1 {
+        flex: 1;
+        border: 1px solid red;
+        display: flex;
+        justify-content: center;
+        gap: 50px;
+    }
 
     p {
         font-size: 24px;
@@ -60,6 +68,7 @@ const StyledHeader = styled.header`
                 transition: color 0.4s;
                 background: white;
                 margin-bottom: 10px;
+                cursor: pointer;
 
                 &:hover {
                     color: ${({theme}) => theme.colors.tertiary};
@@ -106,7 +115,8 @@ const Header = () => {
     return (
         <StyledHeader>
             {user.userInfo ?
-            <Link to="/">
+            <div className="flex1">
+                <div>
                 <p className="user-name">{userInfo.name} <FaAngleDown /></p>
                 <div className="dropdown">
                     <ul>
@@ -114,11 +124,21 @@ const Header = () => {
                         <li>Profile</li>
                     </ul>
                 </div>
-            </Link> :
-            <Link to="/signin"><p>Sign In</p></Link>
+                </div>
+                <div>
+                <p className="user-name">{userInfo.name} <FaAngleDown /></p>
+                <div className="dropdown">
+                    <ul>
+                        <li onClick={handleSignOut}>Sign Out</li>
+                        <li>Profile</li>
+                    </ul>
+                </div>
+                </div>
+            </div> :
+            <Link to="/signin" className="flex1"><p>Sign In</p></Link>
             }
             <Link to="/"><h1>E-Commerce Shop</h1></Link>
-            <Link to="/cart"><p className="cart">
+            <Link to="/cart" className="flex1"><p className="cart">
                 Cart
                 {cartArr.length > 0 ? <span>{cartArr.length}</span> : null}
             </p></Link>

@@ -1,7 +1,6 @@
 import {
   USER_DETAILS_FAILED,
   USER_DETAILS_REQUEST,
-  USER_DETAILS_RESET,
   USER_DETAILS_SUCCESS,
 } from "../constants/userConstants";
 
@@ -13,8 +12,6 @@ const userDetailsReducer = (state = {}, action) => {
       return { loading: false, details: action.payload };
     case USER_DETAILS_FAILED:
       return { loading: false, error: action.payload };
-    case USER_DETAILS_RESET:
-      return {};
     default:
       return state;
   }

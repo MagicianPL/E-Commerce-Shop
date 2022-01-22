@@ -10,6 +10,7 @@ import getOrderReducer from "./reducers/getOrderReducer";
 import payOrderReducer from "./reducers/payOrderReducer";
 import getOrdersReducer from "./reducers/getOrdersReducer";
 import userDetailsReducer from "./reducers/userDetailsReducer";
+import userUpdateReducer from "./reducers/userUpdateReducer";
 
 const initialState = {
   cart: {
@@ -35,6 +36,7 @@ const reducer = combineReducers({
   payOrderReducer,
   getOrdersReducer,
   userDetailsReducer,
+  userUpdateReducer,
 });
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

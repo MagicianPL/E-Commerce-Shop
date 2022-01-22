@@ -2,6 +2,9 @@ import {
   USER_DETAILS_REQUEST,
   USER_DETAILS_SUCCESS,
   USER_DETAILS_FAILED,
+  USER_UPDATE_REQUEST,
+  USER_UPDATE_SUCCESS,
+  USER_UPDATE_FAILED,
   USER_REGISTER_FAILED,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
@@ -100,3 +103,29 @@ export const getDetails = (id) => async (dispatch, getState) => {
     dispatch({ type: USER_DETAILS_FAILED, payload: err.message });
   }
 };
+
+export const updateUser =
+  (id, name, email, password) => async (dispatch, getState) => {
+    const token = getState().user.userInfo.token;
+    dispatch({ type: USER_UPDATE_REQUEST });
+
+    try {
+      const res = await fetch(`http://localhost:5000/api/users/update/${id}`, {
+        method: "PUT",
+        headers: {
+          authorization: `Bearer ${token}`,
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name, email, password }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        dispatch({ type: USER_UPDATE_SUCCESS, payload: data });
+      } else {
+        dispatch({ type: USER_UPDATE_FAILED, payload: data.message });
+      }
+    } catch (err) {
+      dispatch({ type: USER_UPDATE_FAILED, payload: err.message });
+    }
+  };

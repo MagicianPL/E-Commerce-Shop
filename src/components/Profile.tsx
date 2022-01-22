@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { getDetails } from '../state/actions/userActions';
+import { getDetails, updateUser } from '../state/actions/userActions';
 import Input from './Input';
 import StyledButton from './StyledButton';
 
@@ -23,12 +23,19 @@ const StyledWrapper = styled.div`
         background: ${({theme}) => theme.colors.secondary};
         padding: 10px;
     }
+
+    .success {
+        color: green;
+    }
 `
 
 const Profile = () => {
 
     const userId = useSelector((state: any) => state.user.userInfo._id);
     const {loading, error, details} = useSelector((state: any) => state.userDetailsReducer);
+
+    //For updating data (handleFormSubmit FN)
+    const {loading: loadingUpdate, error: errorUpdate, success} = useSelector((state: any) => state.userUpdateReducer);
 
     //For Inputs
     const [inputValues, setInputValues] = useState({
@@ -78,7 +85,7 @@ const Profile = () => {
             setErrorMessage("Error: Passwords do not match");
         } else {
             setErrorMessage("");
-            console.log("everything is ok");
+            dispatch(updateUser(userId, name, email, password));
         }
     };
 
@@ -89,6 +96,9 @@ const Profile = () => {
             : details ? <>
             <h1>User Profile</h1>
             {errorMessage && <p className="errorMessage">{errorMessage}</p>}
+            {loadingUpdate ? <p>Updating, please wait...</p>
+            : errorUpdate ? <p className="errorMessage">{errorUpdate}</p>
+            : success ? <h2 className="success">Successfully updated!</h2> : null}
             <form onSubmit={handleFormSubmit}>
                 <Input label="Name" id="name" name="name" type="text" value={inputValues.name} onChange={handleInputChange}/>
                 <Input label="Email" id="email" name="email" type="text" value={inputValues.email} onChange={handleInputChange}/>

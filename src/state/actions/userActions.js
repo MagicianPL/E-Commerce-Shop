@@ -122,6 +122,8 @@ export const updateUser =
       const data = await res.json();
       if (res.ok) {
         dispatch({ type: USER_UPDATE_SUCCESS, payload: data });
+        dispatch({ type: USER_SIGN_IN_SUCCESS, payload: data });
+        localStorage.setItem("userInfo", JSON.stringify(data));
       } else {
         dispatch({ type: USER_UPDATE_FAILED, payload: data.message });
       }

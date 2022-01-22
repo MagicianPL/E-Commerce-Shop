@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { getDetails, updateUser } from '../state/actions/userActions';
+import { USER_UPDATE_RESET } from '../state/constants/userConstants';
 import Input from './Input';
 import StyledButton from './StyledButton';
 
@@ -30,8 +31,8 @@ const StyledWrapper = styled.div`
 `
 
 const Profile = () => {
-
-    const userId = useSelector((state: any) => state.user.userInfo._id);
+    const userInfo = useSelector((state: any) => state.user.userInfo);
+    const userId = userInfo ? userInfo._id : null;
     const {loading, error, details} = useSelector((state: any) => state.userDetailsReducer);
 
     //For updating data (handleFormSubmit FN)
@@ -50,6 +51,7 @@ const Profile = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         if(userId) {
+            dispatch({type: USER_UPDATE_RESET});
             dispatch(getDetails(userId));
         } else {
             navigate("/signin");

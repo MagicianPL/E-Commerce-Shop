@@ -54,7 +54,7 @@ const StyledHeader = styled.header`
             right: 0;
             top: 0;
             list-style: none;
-            width: 100%;
+            min-width: 100%;
             display: flex;
             flex-direction: column;
             z-index: 1;
@@ -126,15 +126,18 @@ const Header = () => {
                     </ul>
                 </div>
                 </div>
-                <div>
-                <p className="user-name">{userInfo.name} <FaAngleDown /></p>
-                <div className="dropdown">
-                    <ul>
-                        <li onClick={handleSignOut}>Sign Out</li>
-                        <li>Profile</li>
-                    </ul>
-                </div>
-                </div>
+                {userInfo.isAdmin &&
+                    <div>
+                    <p className="user-name">Admin <FaAngleDown /></p>
+                    <div className="dropdown">
+                        <ul>
+                            <li>Dashboard</li>
+                            <li>Orders</li>
+                            <li>Products</li>
+                        </ul>
+                    </div>
+                    </div>
+                }
             </div> :
             <Link to="/signin" className="flex1"><p>Sign In</p></Link>
             }
